@@ -185,6 +185,9 @@ impl Entity {
         // vector from this object to the target, and distance
         let dx = target_x - self.x;
         let dy = target_y - self.y;
+        if dx == 0 && dy == 0 {
+            return
+        }
         let distance = ((dx.pow(2) + dy.pow(2)) as f32).sqrt();
 
 
@@ -209,7 +212,7 @@ impl Entity {
     pub fn next_to(&self, other: &Entity) -> bool {
         let dx = (other.x - self.x).abs();
         let dy = (other.y - self.y).abs();
-        (dx == 0 && dy == 1) || (dy == 0 && dx == 1)
+        (dx == 0 && dy == 1) || (dy == 0 && dx == 1) || (dx == 0 && dy == 0)
     }
 
     pub fn move_by(&mut self, dx: i32, dy: i32, map: &mut Map) {
